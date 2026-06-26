@@ -2,114 +2,99 @@ import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import { services } from "@/data/services";
+import { fetchServices } from "@/data/services";
 import { site } from "@/data/site";
 import { localizedHref } from "@/lib/paths";
 import Reveal from "@/components/Reveal";
 import ServiceCard from "@/components/ServiceCard";
+import HeroSlider from "@/components/HeroSlider";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CtaBand from "@/components/CtaBand";
-import { ArrowUpRight, Phone, ServiceIcon } from "@/components/Icons";
+import { ArrowUpRight, Phone } from "@/components/Icons";
 
-export default function HomePage({ params }: { params: { locale: string } }) {
+export const revalidate = 60;
+
+export default async function HomePage({ params }: { params: { locale: string } }) {
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
+  const allServices = await fetchServices();
+  const services = allServices.filter((s) => s.isPrimary).slice(0, 6);
 
   return (
     <>
       {/* ── HERO ── */}
-      <section className="relative mesh grain overflow-hidden">
-        <div className="shell relative grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-10 items-center pt-14 lg:pt-20 pb-16 lg:pb-24">
+      <section className="bg-paper overflow-hidden">
+        <div className="shell grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-center pt-14 lg:pt-20 pb-16 lg:pb-24">
+          {/* Left column */}
           <div>
             <Reveal>
-              <span className="eyebrow">{dict.hero.eyebrow}</span>
+              <div className="inline-flex items-center gap-2.5 bg-ink text-white rounded-full px-4 py-2">
+                <span className="h-2 w-2 rounded-full bg-brand shrink-0" />
+                <span className="text-[0.68rem] font-semibold uppercase tracking-[0.2em]">
+                  {dict.hero.eyebrow}
+                </span>
+              </div>
             </Reveal>
+
             <Reveal delay={90}>
-              <h1 className="display text-[clamp(2.6rem,6.4vw,5rem)] mt-5 leading-[1.0]">
-                {dict.hero.title}
-              </h1>
+              {(() => {
+                const words = dict.hero.title.split(" ");
+                const lastWord = words.pop() ?? "";
+                const rest = words.join(" ");
+                return (
+                  <h1
+                    className="font-sans font-extrabold text-[clamp(2.4rem,5.5vw,3.8rem)] mt-5 leading-[1.06] tracking-tight"
+                    style={{ fontWeight: 800 }}
+                  >
+                    {rest}{" "}
+                    <span className="relative inline-block">
+                      {lastWord}
+                      <span className="absolute -bottom-1 left-0 right-0 h-[5px] rounded-full bg-gradient-to-r from-brand to-gold-soft" />
+                    </span>
+                  </h1>
+                );
+              })()}
             </Reveal>
+
             <Reveal delay={180}>
-              <p className="lead text-lg mt-7 max-w-xl">{dict.hero.subtitle}</p>
+              <p className="lead text-lg mt-6 max-w-lg">{dict.hero.subtitle}</p>
             </Reveal>
-            <Reveal delay={260}>
-              <div className="mt-9 flex flex-col sm:flex-row gap-3">
-                <Link href={localizedHref(locale, "/kontakt")} className="btn btn-primary">
-                  {dict.cta.contact}
+
+            <Reveal delay={240}>
+              <div className="flex flex-wrap gap-2 mt-6">
+                {allServices.slice(0, 4).map((s) => (
+                  <Link
+                    key={s.slug}
+                    href={localizedHref(locale, `/teenused/${s.slug}`)}
+                    className="rounded-full border border-line px-4 py-1.5 text-sm font-medium text-ink hover:border-brand hover:text-brand transition-colors duration-200"
+                  >
+                    {s.title[locale]}
+                  </Link>
+                ))}
+              </div>
+            </Reveal>
+
+            <Reveal delay={310}>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <a href={site.phoneHref} className="btn btn-primary justify-center sm:justify-start">
+                  <Phone className="h-4 w-4" />
+                  {dict.cta.call}
+                </a>
+                <Link
+                  href={localizedHref(locale, "/kontakt")}
+                  className="btn btn-dark justify-center sm:justify-start"
+                >
+                  {dict.cta.quote}
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
-                <a href={site.phoneHref} className="btn btn-ghost">
-                  <Phone className="h-4 w-4" /> {site.phone}
-                </a>
               </div>
-            </Reveal>
-            <Reveal delay={340}>
-              <p className="mt-8 text-sm text-ink-soft flex flex-wrap items-center gap-x-2 gap-y-1">
-                {dict.hero.note.split("·").map((part, i) => (
-                  <span key={i} className="inline-flex items-center gap-2">
-                    {i > 0 && <span className="h-1 w-1 rounded-full bg-gold" />}
-                    {part.trim()}
-                  </span>
-                ))}
-              </p>
             </Reveal>
           </div>
 
-          {/* Visual stack */}
-          <Reveal delay={200} className="relative">
-            <div className="relative aspect-[4/5] w-full max-w-md mx-auto">
-              <div className="absolute inset-0 rounded-[32px] overflow-hidden card shadow-lift">
-                <img
-                  src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?q=80&w=1200&auto=format&fit=crop"
-                  alt="Torupro"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-6 -left-6 card bg-paper px-6 py-5 shadow-soft">
-                <p className="display text-3xl text-brand-deep leading-none">24/7</p>
-                <p className="text-xs uppercase tracking-luxe text-ink-soft mt-1.5">
-                  {dict.contactPage.hours}
-                </p>
-              </div>
-              <div className="absolute -top-5 -right-4 card bg-brand-deep text-white shadow-lift overflow-hidden min-w-[100px]">
-                {/* gold shimmer strip */}
-                <div className="h-1 w-full bg-gradient-to-r from-gold/60 via-gold to-gold/60" />
-                <div className="px-5 py-4 text-center relative">
-                  {/* decorative dot */}
-                  <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-gold/50" />
-                  <ServiceIcon name="pipe" className="h-5 w-5 text-gold mx-auto mb-2" />
-                  <p className="display text-3xl leading-none text-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]">
-                    10+
-                  </p>
-                  <div className="h-px w-full bg-white/10 my-2" />
-                  <p className="text-[0.58rem] uppercase tracking-luxe text-white/60 leading-[1.6]">
-                    {locale === "et" ? (
-                      <>aastat<br />kogemust</>
-                    ) : locale === "ru" ? (
-                      <>лет<br />опыта</>
-                    ) : (
-                      <>years of<br />experience</>
-                    )}
-                  </p>
-                </div>
-              </div>
-            </div>
+          {/* Right column — image slider */}
+          <Reveal delay={180}>
+            <HeroSlider />
           </Reveal>
-        </div>
-
-        {/* marquee */}
-        <div className="relative border-y border-line py-4 overflow-hidden">
-          <div className="marquee-track">
-            {[...services, ...services].map((s, i) => (
-              <span
-                key={i}
-                className="display text-xl text-ink/35 px-8 whitespace-nowrap flex items-center gap-8"
-              >
-                {s.title[locale]}
-                <span className="h-1.5 w-1.5 rounded-full bg-gold/50" />
-              </span>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -166,7 +151,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {services.map((s, i) => (
               <Reveal key={s.slug} delay={(i % 3) * 90}>
-                <ServiceCard service={s} locale={locale} readMore={dict.cta.readMore} />
+                <ServiceCard service={s} locale={locale} readMore={dict.cta.readMore} primary />
               </Reveal>
             ))}
           </div>
