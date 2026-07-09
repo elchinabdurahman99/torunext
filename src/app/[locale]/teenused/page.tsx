@@ -16,7 +16,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
-  return { title: dict.meta.servicesTitle, description: dict.meta.servicesDesc };
+  return {
+    title: dict.meta.servicesTitle,
+    description: dict.meta.servicesDesc,
+    alternates: {
+      canonical: `https://torupro.ee/${locale}/teenused`,
+      languages: {
+        et: "https://torupro.ee/et/teenused",
+        en: "https://torupro.ee/en/teenused",
+        ru: "https://torupro.ee/ru/teenused",
+        "x-default": "https://torupro.ee/et/teenused",
+      },
+    },
+  };
 }
 
 export default async function ServicesPage({ params }: { params: { locale: string } }) {

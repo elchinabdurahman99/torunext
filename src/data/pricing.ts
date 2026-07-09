@@ -16,7 +16,7 @@ export const priceRows: PriceRow[] = [
       en: "Emergency technical-system works",
       ru: "Аварийные работы инженерных систем",
     },
-    price: eur("32 €/h"),
+    price: eur("50 €/h"),
   },
   {
     service: {
@@ -24,7 +24,7 @@ export const priceRows: PriceRow[] = [
       en: "Sanitary-engineering works",
       ru: "Сантехнические работы",
     },
-    price: eur("32 €/h"),
+    price: eur("50 €/h"),
   },
   {
     service: {
@@ -32,11 +32,11 @@ export const priceRows: PriceRow[] = [
       en: "Sewer unclogging (Rothenberger R-600)",
       ru: "Устранение засоров канализации (Rothenberger R-600)",
     },
-    price: eur("32 €/h"),
+    price: eur("50 €/h"),
   },
   {
     service: { et: "Elektritööd", en: "Electrical works", ru: "Электромонтажные работы" },
-    price: eur("32 €/h"),
+    price: eur("50 €/h"),
   },
   {
     service: {

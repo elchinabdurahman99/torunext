@@ -14,7 +14,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
-  return { title: dict.meta.pricingTitle, description: dict.meta.pricingDesc };
+  return {
+    title: dict.meta.pricingTitle,
+    description: dict.meta.pricingDesc,
+    alternates: {
+      canonical: `https://torupro.ee/${locale}/hinnakiri`,
+      languages: {
+        et: "https://torupro.ee/et/hinnakiri",
+        en: "https://torupro.ee/en/hinnakiri",
+        ru: "https://torupro.ee/ru/hinnakiri",
+        "x-default": "https://torupro.ee/et/hinnakiri",
+      },
+    },
+  };
 }
 
 export default function PricingPage({ params }: { params: { locale: string } }) {

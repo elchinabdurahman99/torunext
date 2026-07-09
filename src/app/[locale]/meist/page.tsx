@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import type { Locale } from "@/i18n/config";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -16,7 +17,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
-  return { title: dict.meta.aboutTitle, description: dict.meta.aboutDesc };
+  return {
+    title: dict.meta.aboutTitle,
+    description: dict.meta.aboutDesc,
+    alternates: {
+      canonical: `https://torupro.ee/${locale}/meist`,
+      languages: {
+        et: "https://torupro.ee/et/meist",
+        en: "https://torupro.ee/en/meist",
+        ru: "https://torupro.ee/ru/meist",
+        "x-default": "https://torupro.ee/et/meist",
+      },
+    },
+  };
 }
 
 export default function AboutPage({ params }: { params: { locale: string } }) {
@@ -31,10 +44,13 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <Reveal className="relative">
             <div className="relative aspect-[4/3] rounded-[28px] overflow-hidden card shadow-soft">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?q=80&w=1200&auto=format&fit=crop"
                 alt=""
-                className="h-full w-full object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+                loading="lazy"
               />
             </div>
           </Reveal>

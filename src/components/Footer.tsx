@@ -17,6 +17,7 @@ export default function Footer({
     { href: localizedHref(locale, "/meist"), label: dict.nav.about },
     { href: localizedHref(locale, "/teenused"), label: dict.nav.services },
     { href: localizedHref(locale, "/hinnakiri"), label: dict.nav.pricing },
+    { href: localizedHref(locale, "/blogi"), label: dict.nav.blog },
     { href: localizedHref(locale, "/kontakt"), label: dict.nav.contact },
   ];
 
@@ -87,10 +88,18 @@ export default function Footer({
         </div>
 
         <div className="mt-14 pt-7 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/55">
-          <p>
-            © {new Date().getFullYear()} {site.name}. {dict.footer.rights}
-          </p>
-          <p className="tracking-luxe uppercase">{site.legalName}</p>
+          <a
+            href="https://navalab.ee"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white/80 transition-colors"
+          >
+            Made with ❤️ by Navalab © 2026. All rights reserved.
+          </a>
+          <div className="flex items-center gap-4">
+            <Link href={localizedHref(locale, "/privacy")} className="hover:text-white/80 transition-colors">{dict.footer.privacy}</Link>
+            <Link href={localizedHref(locale, "/terms")} className="hover:text-white/80 transition-colors">{dict.footer.terms}</Link>
+          </div>
         </div>
       </div>
     </footer>

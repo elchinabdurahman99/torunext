@@ -18,6 +18,8 @@ export type Service = {
   title: LocalizedText;
   short: LocalizedText;
   long: LocalizedText;
+  imageUrl?: string;
+  imageAlt?: LocalizedText;
   // SEO
   metaTitle?: LocalizedText;
   metaDesc?: LocalizedText;
@@ -32,6 +34,8 @@ export type Service = {
   faq?: FaqItem[];
 };
 
+const IMAGE_FIELDS = `"imageUrl": image1.asset->url, imageAlt_et, imageAlt_en, imageAlt_ru`;
+
 const SERVICES_QUERY = `*[_type == "service"] | order(order asc) {
   _id, slug, order, index, icon, isPrimary,
   title_et, title_en, title_ru,
@@ -45,7 +49,8 @@ const SERVICES_QUERY = `*[_type == "service"] | order(order asc) {
   ogTitle_et, ogTitle_en, ogTitle_ru,
   ogDesc_et, ogDesc_en, ogDesc_ru,
   canonicalUrl, serviceArea, priceRange,
-  faq
+  faq,
+  ${IMAGE_FIELDS}
 }`;
 
 function mapSanityService(s: Record<string, unknown>): Service {
@@ -59,6 +64,12 @@ function mapSanityService(s: Record<string, unknown>): Service {
     title: { et: (s.title_et as string) ?? "", en: (s.title_en as string) ?? "", ru: (s.title_ru as string) ?? "" },
     short: { et: (s.short_et as string) ?? "", en: (s.short_en as string) ?? "", ru: (s.short_ru as string) ?? "" },
     long:  { et: (s.long_et as string)  ?? "", en: (s.long_en as string)  ?? "", ru: (s.long_ru as string)  ?? "" },
+    imageUrl: (s.imageUrl as string) ?? undefined,
+    imageAlt: {
+      et: (s.imageAlt_et as string) ?? "",
+      en: (s.imageAlt_en as string) ?? "",
+      ru: (s.imageAlt_ru as string) ?? "",
+    },
     metaTitle: { et: (s.metaTitle_et as string) ?? "", en: (s.metaTitle_en as string) ?? "", ru: (s.metaTitle_ru as string) ?? "" },
     metaDesc:  { et: (s.metaDesc_et as string)  ?? "", en: (s.metaDesc_en as string)  ?? "", ru: (s.metaDesc_ru as string)  ?? "" },
     h1:        { et: (s.h1_et as string) ?? "", en: (s.h1_en as string) ?? "", ru: (s.h1_ru as string) ?? "" },
@@ -98,7 +109,9 @@ export async function fetchService(slug: string): Promise<Service | undefined> {
         ogTitle_et, ogTitle_en, ogTitle_ru,
         ogDesc_et, ogDesc_en, ogDesc_ru,
         canonicalUrl, serviceArea, priceRange,
-        faq
+        faq,
+        "imageUrl": image1.asset->url,
+        imageAlt_et, imageAlt_en, imageAlt_ru
       }`,
       { slug }
     );

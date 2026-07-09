@@ -14,6 +14,7 @@ type NavStrings = {
   about: string;
   services: string;
   pricing: string;
+  blog: string;
   contact: string;
 };
 
@@ -56,6 +57,7 @@ export default function Header({
     { href: localizedHref(locale, "/meist"), label: nav.about },
     { href: localizedHref(locale, "/teenused"), label: nav.services },
     { href: localizedHref(locale, "/hinnakiri"), label: nav.pricing },
+    { href: localizedHref(locale, "/blogi"), label: nav.blog },
     { href: localizedHref(locale, "/kontakt"), label: nav.contact },
   ];
 

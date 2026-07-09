@@ -84,8 +84,13 @@ export const service = defineType({
     defineField({ name: "isPrimary", title: "Primary Service (shown on homepage)", type: "boolean", initialValue: false }),
 
     // ── Images ────────────────────────────────────────────────────────────
-    defineField({ name: "image1", title: "Page Image 1", type: "image" }),
-    defineField({ name: "image2", title: "Page Image 2", type: "image" }),
+    defineField({ name: "image1", title: "Page Image 1", type: "image", options: { hotspot: true } }),
+    defineField({ name: "image2", title: "Page Image 2", type: "image", options: { hotspot: true } }),
+
+    // ── Image Alt Text (SEO) ──────────────────────────────────────────────
+    defineField({ name: "imageAlt_et", title: "Image Alt Text (ET)", type: "string" }),
+    defineField({ name: "imageAlt_en", title: "Image Alt Text (EN)", type: "string" }),
+    defineField({ name: "imageAlt_ru", title: "Image Alt Text (RU)", type: "string" }),
   ],
   preview: { select: { title: "title_et", subtitle: "slug" } },
   orderings: [{ title: "Order", name: "orderAsc", by: [{ field: "order", direction: "asc" }] }],

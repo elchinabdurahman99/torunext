@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/i18n/config";
 import { isLocale, locales } from "@/i18n/config";
@@ -31,7 +32,7 @@ export async function generateMetadata({
   const title = service.metaTitle?.[locale] || `${service.title[locale]} — Torupro`;
   const description = service.metaDesc?.[locale] || service.short[locale];
   const keywords = service.keywords?.[locale] ?? [];
-  const canonical = service.canonicalUrl || `https://torupro.ee/${locale}/teenused/${params.slug}`;
+  const canonical = `https://torupro.ee/${locale}/teenused/${params.slug}`;
   const ogTitle = service.ogTitle?.[locale] || title;
   const ogDesc = service.ogDesc?.[locale] || description;
 
@@ -39,7 +40,15 @@ export async function generateMetadata({
     title,
     description,
     keywords: keywords.join(", "),
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: {
+        et: `https://torupro.ee/et/teenused/${params.slug}`,
+        en: `https://torupro.ee/en/teenused/${params.slug}`,
+        ru: `https://torupro.ee/ru/teenused/${params.slug}`,
+        "x-default": `https://torupro.ee/et/teenused/${params.slug}`,
+      },
+    },
     openGraph: {
       title: ogTitle,
       description: ogDesc,
@@ -160,17 +169,26 @@ export default async function ServiceDetailPage({
       </section>
 
       {/* Full-width image */}
-      <div className="shell pt-10">
-        <Reveal>
-          <div className="relative aspect-[21/9] rounded-[24px] overflow-hidden card shadow-soft">
-            <img
-              src="https://images.unsplash.com/photo-1620626011761-996317b8d101?q=80&w=1400&auto=format&fit=crop"
-              alt={service.title[locale]}
-              className="h-full w-full object-cover"
-            />
-          </div>
-        </Reveal>
-      </div>
+      {(service.imageUrl || true) && (
+        <div className="shell pt-10">
+          <Reveal>
+            <div className="relative aspect-[21/9] rounded-[24px] overflow-hidden card shadow-soft">
+              <Image
+                src={
+                  service.imageUrl
+                    ? `${service.imageUrl}?w=1400&auto=format&fit=crop`
+                    : "https://images.unsplash.com/photo-1620626011761-996317b8d101?q=80&w=1400&auto=format&fit=crop"
+                }
+                alt={service.imageAlt?.[locale] || service.title[locale]}
+                fill
+                sizes="(max-width: 768px) 100vw, 90vw"
+                className="object-cover"
+                priority
+              />
+            </div>
+          </Reveal>
+        </div>
+      )}
 
       {/* Body */}
       <section className="shell py-14 lg:py-20">

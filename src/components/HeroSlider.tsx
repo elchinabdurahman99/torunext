@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "./Icons";
 
 const IMAGES = [
@@ -17,11 +18,14 @@ export default function HeroSlider() {
 
   return (
     <div className="relative w-full rounded-[28px] overflow-hidden aspect-[4/3] shadow-lift">
-      <img
+      <Image
         key={idx}
         src={IMAGES[idx]}
         alt=""
-        className="w-full h-full object-cover transition-opacity duration-500"
+        fill
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        className="object-cover transition-opacity duration-500"
+        priority={idx === 0}
       />
       <button
         onClick={prev}

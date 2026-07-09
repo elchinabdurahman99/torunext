@@ -2,9 +2,23 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [390, 640, 828, 1080, 1200, 1440, 1920],
+    imageSizes: [16, 32, 64, 96, 128, 256],
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "cdn.sanity.io" },
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/_next/static/(.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
   },
 };
 

@@ -1,12 +1,11 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { locales, localeShort, localeNames, isLocale, type Locale } from "@/i18n/config";
 
 export default function LanguageSwitcher({ current }: { current: Locale }) {
   const pathname = usePathname();
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -27,7 +26,7 @@ export default function LanguageSwitcher({ current }: { current: Locale }) {
     }
     const target = segments.join("/") || `/${next}`;
     setOpen(false);
-    router.push(target);
+    window.location.href = target;
   }
 
   return (

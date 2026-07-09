@@ -15,7 +15,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
-  return { title: dict.meta.contactTitle, description: dict.meta.contactDesc };
+  return {
+    title: dict.meta.contactTitle,
+    description: dict.meta.contactDesc,
+    alternates: {
+      canonical: `https://torupro.ee/${locale}/kontakt`,
+      languages: {
+        et: "https://torupro.ee/et/kontakt",
+        en: "https://torupro.ee/en/kontakt",
+        ru: "https://torupro.ee/ru/kontakt",
+        "x-default": "https://torupro.ee/et/kontakt",
+      },
+    },
+  };
 }
 
 export default function ContactPage({ params }: { params: { locale: string } }) {

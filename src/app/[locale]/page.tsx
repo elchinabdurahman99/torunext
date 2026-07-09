@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Locale } from "@/i18n/config";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -14,6 +15,40 @@ import { ArrowUpRight, Phone } from "@/components/Icons";
 
 export const revalidate = 60;
 
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Torupro / BaMu Ehitus OÜ",
+  legalName: "BaMu Ehitus OÜ",
+  url: "https://torupro.ee",
+  telephone: "+37256877877",
+  email: "info@torupro.ee",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Pae tn 20",
+    addressLocality: "Tallinn",
+    addressRegion: "Harjumaa",
+    postalCode: "11414",
+    addressCountry: "EE",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 59.4365,
+    longitude: 24.7603,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
+  ],
+  priceRange: "€-€€€",
+  areaServed: "Tallinn, Harjumaa",
+  serviceType: "Sanitaartehnilised tööd",
+};
+
 export default async function HomePage({ params }: { params: { locale: string } }) {
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
@@ -22,6 +57,10 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
       {/* ── HERO ── */}
       <section className="bg-paper overflow-hidden">
         <div className="shell grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-center pt-14 lg:pt-20 pb-16 lg:pb-24">
@@ -103,10 +142,13 @@ export default async function HomePage({ params }: { params: { locale: string } 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <Reveal className="relative order-2 lg:order-1">
             <div className="relative aspect-[5/4] rounded-[28px] overflow-hidden card shadow-soft">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=1200&auto=format&fit=crop"
                 alt=""
-                className="h-full w-full object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+                loading="lazy"
               />
             </div>
           </Reveal>

@@ -5,8 +5,10 @@ export const site = {
   address: "Pae tn 20, Tallinn, Harjumaa 11414",
   addressShort: "Pae tn 20, Tallinn",
   email: "info@torupro.ee",
-  phone: "+372 56 058 888",
-  phoneHref: "tel:+37256058888",
+  phone: "+372 56 877 877",
+  phoneHref: "tel:+37256877877",
+  phone2: "+372 68 77 877",
+  phone2Href: "tel:+37268777877",
   emailHref: "mailto:info@torupro.ee",
   // Tallinn center coordinates for the map embed
   mapEmbed:
