@@ -4,6 +4,7 @@ import type { Locale } from "@/i18n/config";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { fetchServices } from "@/data/services";
+import { fetchTestimonials } from "@/data/testimonials";
 import { site } from "@/data/site";
 import { localizedHref } from "@/lib/paths";
 import Reveal from "@/components/Reveal";
@@ -54,6 +55,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
   const dict = getDictionary(locale);
   const allServices = await fetchServices();
   const services = allServices.filter((s) => s.isPrimary).slice(0, 6);
+  const testimonials = await fetchTestimonials(locale);
 
   return (
     <>
@@ -221,7 +223,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
         </div>
       </section>
 
-      <TestimonialsSection locale={locale} dict={dict} />
+      <TestimonialsSection dict={dict} testimonials={testimonials} />
 
       <CtaBand
         locale={locale}

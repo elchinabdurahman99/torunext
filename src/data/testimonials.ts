@@ -1,11 +1,19 @@
+import type { Locale } from "@/i18n/config";
+import { sanityClient } from "@/lib/sanity";
+
 export type Testimonial = {
   name: string;
   location: string;
   rating: number;
-  text: Record<"et" | "en" | "ru", string>;
+  message: string;
 };
 
-export const testimonials: Testimonial[] = [
+const SEED_TESTIMONIALS: Array<{
+  name: string;
+  location: string;
+  rating: number;
+  text: Record<Locale, string>;
+}> = [
   {
     name: "Marek K.",
     location: "Kesklinn, Tallinn",
@@ -67,3 +75,29 @@ export const testimonials: Testimonial[] = [
     },
   },
 ];
+
+const TESTIMONIALS_QUERY = `*[_type == "testimonial" && approved == true && locale == $locale] | order(createdAt desc) {
+  name, location, rating, message
+}`;
+
+export async function fetchTestimonials(locale: Locale): Promise<Testimonial[]> {
+  try {
+    const raw = await sanityClient.fetch<Array<Record<string, unknown>>>(TESTIMONIALS_QUERY, { locale });
+    const mapped = raw.map((t) => ({
+      name: (t.name as string) ?? "",
+      location: (t.location as string) ?? "",
+      rating: (t.rating as number) ?? 5,
+      message: (t.message as string) ?? "",
+    }));
+    if (mapped.length > 0) return mapped;
+  } catch {
+    // fall through to seed data below
+  }
+
+  return SEED_TESTIMONIALS.map((t) => ({
+    name: t.name,
+    location: t.location,
+    rating: t.rating,
+    message: t.text[locale],
+  }));
+}

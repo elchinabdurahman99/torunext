@@ -5,6 +5,9 @@ import type { Dictionary } from "@/i18n/dictionaries";
 
 type Status = "idle" | "sending" | "success" | "error";
 
+const MAX_FILES = 6;
+const MAX_FILE_SIZE = 12 * 1024 * 1024;
+
 export default function ContactForm({ dict }: { dict: Dictionary["form"] }) {
   const [status, setStatus] = useState<Status>("idle");
   const [values, setValues] = useState({ name: "", email: "", phone: "", address: "", message: "" });
@@ -32,17 +35,29 @@ export default function ContactForm({ dict }: { dict: Dictionary["form"] }) {
     if (!validate()) return;
     setStatus("sending");
     try {
+      const formData = new FormData();
+      Object.entries(values).forEach(([key, value]) => formData.append(key, value));
+      files.forEach((file) => formData.append("files", file));
+
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: formData,
       });
       if (!res.ok) throw new Error("Request failed");
       setStatus("success");
       setValues({ name: "", email: "", phone: "", address: "", message: "" });
+      setFiles([]);
     } catch {
       setStatus("error");
     }
+  }
+
+  function handleFileSelect(selected: File[]) {
+    const withinSize = selected.filter((f) => f.size <= MAX_FILE_SIZE);
+    const tooBig = selected.length !== withinSize.length;
+    const next = withinSize.slice(0, MAX_FILES);
+    setFiles(next);
+    setErrors((e) => ({ ...e, files: tooBig ? dict.filesNote : "" }));
   }
 
   if (status === "success") {
@@ -153,8 +168,8 @@ export default function ContactForm({ dict }: { dict: Dictionary["form"] }) {
               multiple
               accept="image/*,video/*,.pdf"
               onChange={(e) => {
-                const selected = Array.from(e.target.files || []).slice(0, 6);
-                setFiles(selected);
+                handleFileSelect(Array.from(e.target.files || []));
+                e.target.value = "";
               }}
             />
           </label>
@@ -169,10 +184,21 @@ export default function ContactForm({ dict }: { dict: Dictionary["form"] }) {
                 </svg>
                 <span className="truncate max-w-[200px]">{f.name}</span>
                 <span className="text-stone-400 flex-shrink-0">({(f.size / 1024 / 1024).toFixed(1)} MB)</span>
+                <button
+                  type="button"
+                  onClick={() => setFiles((prev) => prev.filter((_, idx) => idx !== i))}
+                  className="ml-auto text-stone-400 hover:text-red-600 flex-shrink-0"
+                  aria-label="Remove"
+                >
+                  <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
               </li>
             ))}
           </ul>
         )}
+        {errors.files && <p className="text-sm text-red-600 mt-1.5">{errors.files}</p>}
         <p className="text-xs text-stone-400 mt-2">{dict.filesHint}</p>
       </div>
 

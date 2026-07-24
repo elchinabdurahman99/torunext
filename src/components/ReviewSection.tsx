@@ -1,8 +1,9 @@
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import Reveal from "./Reveal";
 import ReviewForm from "./ReviewForm";
 
-export default function ReviewSection({ dict }: { dict: Dictionary }) {
+export default function ReviewSection({ dict, locale }: { dict: Dictionary; locale: Locale }) {
   return (
     <section className="shell py-20 lg:py-28">
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
@@ -15,7 +16,7 @@ export default function ReviewSection({ dict }: { dict: Dictionary }) {
         </Reveal>
 
         <Reveal delay={120}>
-          <ReviewForm dict={dict.reviewForm} />
+          <ReviewForm dict={dict.reviewForm} locale={locale} />
         </Reveal>
       </div>
     </section>

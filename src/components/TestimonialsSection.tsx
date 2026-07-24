@@ -1,21 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { testimonials } from "@/data/testimonials";
+import type { Testimonial } from "@/data/testimonials";
 import Reveal from "./Reveal";
 import { ChevronLeft, ChevronRight, Quote, Star } from "./Icons";
 
 export default function TestimonialsSection({
-  locale,
   dict,
+  testimonials,
 }: {
-  locale: Locale;
   dict: Dictionary;
+  testimonials: Testimonial[];
 }) {
   const [index, setIndex] = useState(0);
   const total = testimonials.length;
+
+  if (total === 0) return null;
 
   function go(delta: number) {
     setIndex((i) => (i + delta + total) % total);
@@ -57,7 +58,7 @@ export default function TestimonialsSection({
           </div>
 
           <p className="lead text-lg sm:text-xl mt-6 max-w-2xl leading-relaxed">
-            {current.text[locale]}
+            {current.message}
           </p>
 
           <div className="mt-8 flex items-center gap-4">

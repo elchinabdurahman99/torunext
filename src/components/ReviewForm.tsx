@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { Star } from "./Icons";
 
 type Status = "idle" | "sending" | "success" | "error";
 
-export default function ReviewForm({ dict }: { dict: Dictionary["reviewForm"] }) {
+export default function ReviewForm({ dict, locale }: { dict: Dictionary["reviewForm"]; locale: Locale }) {
   const [status, setStatus] = useState<Status>("idle");
   const [values, setValues] = useState({ name: "", message: "" });
   const [rating, setRating] = useState(5);
@@ -34,7 +35,7 @@ export default function ReviewForm({ dict }: { dict: Dictionary["reviewForm"] })
       const res = await fetch("/api/review", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, rating }),
+        body: JSON.stringify({ ...values, rating, locale }),
       });
       if (!res.ok) throw new Error("Request failed");
       setStatus("success");

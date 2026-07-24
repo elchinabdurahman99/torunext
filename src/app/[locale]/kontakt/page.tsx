@@ -97,7 +97,7 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
         </div>
       </section>
 
-      <ReviewSection dict={dict} />
+      <ReviewSection dict={dict} locale={locale} />
     </>
   );
 }
