@@ -22,7 +22,7 @@ const localBusinessSchema = {
   name: "Torupro / BaMu Ehitus OÜ",
   legalName: "BaMu Ehitus OÜ",
   url: "https://torupro.ee",
-  telephone: "+37256877877",
+  telephone: "+37256792222",
   email: "info@torupro.ee",
   address: {
     "@type": "PostalAddress",
