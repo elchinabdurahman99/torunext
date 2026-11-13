@@ -50,7 +50,7 @@ Kiirus ja kättesaadavus on samuti oluline. Avariiolukordades — lekke, torumur
 
 Torupro meistrid on teinud torutöid kõigis Tallinna linnaosades: Lasnamäel, Mustamäel, Põhja-Tallinnas, Kristiines, Nõmmel, Piraital ja Kesklinnas. Harjumaal teenindame aktiivselt Rae, Viimsi, Saue ja Keila valda. Oleme tuttavad ka konkreetsete korteriühistute probleemidega — Õismäe ringmajad, Lasnamäe suurpaneel, Kopli raudbetoonelamud — kõigil on oma eripärad.
 
-Torutöö hind Tallinnas sõltub töö mahust, materjalidest ja kiireloomulisusest. Meie põhimõte on läbipaistvus: enne töö algust saate täpse ja kirjaliku kalkulatsiooni — ilma peidetud lisatasudeta. Küsige meilt tasuta hinnapakkumist telefoni teel (+372 56 877 877) või kirjutage info@torupro.ee. Kirjeldage probleemi lühidalt — meie spetsialist vastab kiirelt ja annab esialgse hinnahinnangu.`,
+Torutöö hind Tallinnas sõltub töö mahust, materjalidest ja kiireloomulisusest. Meie põhimõte on läbipaistvus: enne töö algust saate täpse ja kirjaliku kalkulatsiooni — ilma peidetud lisatasudeta. Küsige meilt tasuta hinnapakkumist telefoni teel (+372 56 877 877) või kirjutage info@kiirhaldus24.ee. Kirjeldage probleemi lühidalt — meie spetsialist vastab kiirelt ja annab esialgse hinnahinnangu.`,
 
   long_en: `Torupro is Tallinn's trusted plumbing partner — a team with over 10 years of experience handling everything from a dripping tap to a full apartment-building pipe overhaul. With more than 2,000 completed projects across Tallinn and Harjumaa, we face every kind of pipe system challenge on a daily basis.
 
@@ -64,7 +64,7 @@ Speed and availability matter too. For emergencies — a leak, burst pipe or flo
 
 Torupro plumbers have worked in every Tallinn district: Lasnamäe, Mustamäe, Põhja-Tallinn, Kristiine, Nõmme, Pirita and the city centre. In Harjumaa we actively serve Rae, Viimsi, Saue and Keila municipalities. We are familiar with the specific challenges of individual building types — Õismäe ring houses, Lasnamäe large-panel blocks, Kopli reinforced-concrete apartment blocks — each has its own quirks.
 
-Plumbing prices in Tallinn depend on scope of work, materials and urgency. Our principle is transparency: before work begins you receive a precise written quote with no hidden extras. Call us for a free estimate at +372 56 877 877 or write to info@torupro.ee. Describe the problem briefly — our specialist will respond quickly with an initial price indication.`,
+Plumbing prices in Tallinn depend on scope of work, materials and urgency. Our principle is transparency: before work begins you receive a precise written quote with no hidden extras. Call us for a free estimate at +372 56 877 877 or write to info@kiirhaldus24.ee. Describe the problem briefly — our specialist will respond quickly with an initial price indication.`,
 
   long_ru: `Torupro — надёжный партнёр по сантехническим работам в Таллине: команда с опытом более 10 лет, решающая ежедневно как мелкий ремонт крана, так и полную замену трубопроводов во всём многоквартирном доме. За нашими плечами более 2000 успешно завершённых проектов в Таллине и уезде Харью, и именно этот опыт позволяет нам ежедневно сталкиваться с самыми разнообразными сантехническими задачами.
 
@@ -78,7 +78,7 @@ Plumbing prices in Tallinn depend on scope of work, materials and urgency. Our p
 
 Мастера Torupro работали во всех районах Таллина: Ласнамяэ, Мустамяэ, Põhja-Tallinn, Кристийне, Нымме, Пирита и в центре. В уезде Харью активно обслуживаем волости Рае, Виймси, Сауэ и Кейла. Мы знакомы со спецификой конкретных типов зданий — кольцевые дома Ыйсмяэ, крупнопанельные дома Ласнамяэ, железобетонные жилые дома Копли — у каждого свои особенности.
 
-Стоимость сантехнических работ в Таллине зависит от объёма работ, материалов и срочности. Наш принцип — прозрачность: до начала работ вы получаете точную письменную смету без скрытых надбавок. Позвоните нам для бесплатного расчёта: +372 56 877 877 или напишите на info@torupro.ee. Опишите проблему кратко — наш специалист ответит быстро и даст предварительную оценку стоимости.`,
+Стоимость сантехнических работ в Таллине зависит от объёма работ, материалов и срочности. Наш принцип — прозрачность: до начала работ вы получаете точную письменную смету без скрытых надбавок. Позвоните нам для бесплатного расчёта: +372 56 877 877 или напишите на info@kiirhaldus24.ee. Опишите проблему кратко — наш специалист ответит быстро и даст предварительную оценку стоимости.`,
 
   h1_et: "Torutööd Tallinnas — professionaalne torumeister kiiresti kohale",
   h1_en: "Plumbing Works in Tallinn — Professional Plumber at Your Door",

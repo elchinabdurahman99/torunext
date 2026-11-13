@@ -40,7 +40,7 @@ export async function POST(request: Request) {
       from: `Torupro kodulehe vorm <${process.env.SMTP_USER}>`,
       to: CONTACT_TO_EMAIL,
       replyTo: email,
-      subject: `Uus päring kodulehelt${name ? ` – ${name}` : ""}`,
+      subject: `[Torupro] Uus päring kodulehelt${name ? ` – ${name}` : ""}`,
       text: `Nimi: ${name || "-"}\nE-post: ${email}\nTelefon: ${phone}\nAadress: ${address}\n\n${message}`,
       attachments,
     });

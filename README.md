@@ -36,7 +36,7 @@ npm start
 
 1. `npm install resend`
 2. Add `RESEND_API_KEY` to `.env.local`
-3. Uncomment the example block in `route.ts` and set the destination to `info@torupro.ee`.
+3. Uncomment the example block in `route.ts` and set the destination to `info@kiirhaldus24.ee`.
 
 ## Project structure
 
@@ -62,4 +62,4 @@ src/
 
 ## Company
 
-Torupro / BaMu Ehitus OÜ · Reg. 16986440 · Pae tn 20, Tallinn 11414 · info@torupro.ee · +372 56 058 888
+Torupro / BaMu Ehitus OÜ · Reg. 16986440 · Pae tn 20, Tallinn 11414 · info@kiirhaldus24.ee · +372 56 058 888
