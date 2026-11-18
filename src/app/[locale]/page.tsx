@@ -12,6 +12,7 @@ import ServiceCard from "@/components/ServiceCard";
 import HeroSlider from "@/components/HeroSlider";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CtaBand from "@/components/CtaBand";
+import MtrCard from "@/components/MtrCard";
 import { ArrowUpRight, Phone } from "@/components/Icons";
 
 export const revalidate = 60;
@@ -138,6 +139,9 @@ export default async function HomePage({ params }: { params: { locale: string } 
           </Reveal>
         </div>
       </section>
+
+      {/* ── MTR LICENCES ── */}
+      <MtrCard locale={locale} />
 
       {/* ── INTRO ── */}
       <section className="shell py-20 lg:py-28">

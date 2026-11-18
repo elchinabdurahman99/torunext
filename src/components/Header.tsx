@@ -97,7 +97,7 @@ export default function Header({
           <LanguageSwitcher current={locale} />
           <Link
             href={localizedHref(locale, "/kontakt")}
-            className="btn btn-primary hidden sm:inline-flex !py-2.5 !px-5 text-sm"
+            className="btn btn-primary max-sm:!hidden whitespace-nowrap !py-2.5 !px-5 text-sm"
           >
             {ctaLabel}
           </Link>
