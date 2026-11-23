@@ -157,6 +157,12 @@ export type Dictionary = {
     hours: string;
     hoursValue: string;
   };
+  licences: {
+    title: string;
+    note: string;
+    verify: string;
+    items: { label: string; number: string }[];
+  };
   meta: {
     homeTitle: string;
     homeDesc: string;
@@ -394,6 +400,16 @@ const et: Dictionary = {
     reach: "Otsekontakt",
     hours: "Avariiabi",
     hoursValue: "Ööpäevaringselt, 24/7",
+  },
+  licences: {
+    title: "Majandustegevusteated",
+    note: "Kvaliteet ja vastutus on tagatud riiklike tegevuslubadega (MTR):",
+    verify: "Kontrolli MTR-is",
+    items: [
+      { label: "Ehitustööd ja santehnilised tööd", number: "EEH012495" },
+      { label: "Elektritööd", number: "TEL003775" },
+      { label: "Gaasitööd", number: "TGT000755" },
+    ],
   },
   meta: {
     homeTitle: "Torupro — Sanitaartehnilised tööd Tallinnas",
@@ -633,6 +649,16 @@ const en: Dictionary = {
     hours: "Emergency service",
     hoursValue: "Around the clock, 24/7",
   },
+  licences: {
+    title: "Economic activity notices",
+    note: "Quality and responsibility are guaranteed by state activity licences (MTR):",
+    verify: "Verify in MTR",
+    items: [
+      { label: "Construction and plumbing work", number: "EEH012495" },
+      { label: "Electrical work", number: "TEL003775" },
+      { label: "Gas work", number: "TGT000755" },
+    ],
+  },
   meta: {
     homeTitle: "Torupro — Plumbing services in Tallinn",
     homeDesc: "Professional sanitary-engineering solutions in Tallinn and Harju County. Plumbing, unclogging, welding, pressure washing and more.",
@@ -870,6 +896,16 @@ const ru: Dictionary = {
     reach: "Прямой контакт",
     hours: "Аварийная помощь",
     hoursValue: "Круглосуточно, 24/7",
+  },
+  licences: {
+    title: "Уведомления об экономической деятельности",
+    note: "Качество и ответственность гарантированы государственными лицензиями на деятельность (MTR):",
+    verify: "Проверить в MTR",
+    items: [
+      { label: "Строительные и сантехнические работы", number: "EEH012495" },
+      { label: "Электромонтажные работы", number: "TEL003775" },
+      { label: "Газовые работы", number: "TGT000755" },
+    ],
   },
   meta: {
     homeTitle: "Torupro — Сантехнические услуги в Таллинне",
