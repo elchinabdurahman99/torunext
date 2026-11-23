@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { Locale } from "@/i18n/config";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { pageMetadata, breadcrumbSchema, localeUrl, HOME_LABEL, jsonLd } from "@/lib/seo";
 import { localizedHref } from "@/lib/paths";
 import PageHeader from "@/components/PageHeader";
 import CtaBand from "@/components/CtaBand";
@@ -17,19 +18,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
-  return {
+  return pageMetadata({
+    locale,
+    path: "/meist",
     title: dict.meta.aboutTitle,
     description: dict.meta.aboutDesc,
-    alternates: {
-      canonical: `https://torupro.ee/${locale}/meist`,
-      languages: {
-        et: "https://torupro.ee/et/meist",
-        en: "https://torupro.ee/en/meist",
-        ru: "https://torupro.ee/ru/meist",
-        "x-default": "https://torupro.ee/et/meist",
-      },
-    },
-  };
+  });
 }
 
 export default function AboutPage({ params }: { params: { locale: string } }) {
@@ -38,6 +32,17 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(
+            breadcrumbSchema([
+              { name: HOME_LABEL[locale], url: localeUrl(locale) },
+              { name: dict.nav.about, url: localeUrl(locale, "/meist") },
+            ])
+          ),
+        }}
+      />
       <PageHeader eyebrow={dict.about.eyebrow} title={dict.about.title} lead={dict.about.lead} />
 
       <section className="shell py-16 lg:py-24">
@@ -46,7 +51,13 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
             <div className="relative aspect-[4/3] rounded-[28px] overflow-hidden card shadow-soft">
               <Image
                 src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?q=80&w=1200&auto=format&fit=crop"
-                alt=""
+                alt={
+                  locale === "et"
+                    ? "Torumees remondib torustikku Tallinnas"
+                    : locale === "en"
+                      ? "Plumber repairing pipework in Tallinn"
+                      : "Сантехник ремонтирует трубопровод в Таллине"
+                }
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/i18n/config";
@@ -7,6 +8,7 @@ import { fetchServices } from "@/data/services";
 import { fetchTestimonials } from "@/data/testimonials";
 import { site } from "@/data/site";
 import { localizedHref } from "@/lib/paths";
+import { pageMetadata } from "@/lib/seo";
 import Reveal from "@/components/Reveal";
 import ServiceCard from "@/components/ServiceCard";
 import HeroSlider from "@/components/HeroSlider";
@@ -17,38 +19,31 @@ import { ArrowUpRight, Phone } from "@/components/Icons";
 
 export const revalidate = 60;
 
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Torupro / BaMu Ehitus OÜ",
-  legalName: "BaMu Ehitus OÜ",
-  url: "https://torupro.ee",
-  telephone: "+37256792222",
-  email: "info@torupro.ee",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Pae tn 20",
-    addressLocality: "Tallinn",
-    addressRegion: "Harjumaa",
-    postalCode: "11414",
-    addressCountry: "EE",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 59.4365,
-    longitude: 24.7603,
-  },
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-      opens: "00:00",
-      closes: "23:59",
-    },
-  ],
-  priceRange: "€-€€€",
-  areaServed: "Tallinn, Harjumaa",
-  serviceType: "Sanitaartehnilised tööd",
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
+  const dict = getDictionary(locale);
+  return pageMetadata({
+    locale,
+    path: "",
+    title: dict.meta.homeTitle,
+    description: dict.meta.homeDesc,
+  });
+}
+
+const HERO_ALT: Record<Locale, string> = {
+  et: "Torumees paigaldab valamu sifooni ja kanalisatsioonitoru",
+  en: "Plumber installing a sink trap and drain pipe",
+  ru: "Сантехник устанавливает сифон раковины и канализационную трубу",
+};
+
+const INTRO_ALT: Record<Locale, string> = {
+  et: "Sanitaartehnilised tööd ja torustiku paigaldus",
+  en: "Sanitary engineering and pipe installation work",
+  ru: "Сантехнические работы и монтаж трубопровода",
 };
 
 export default async function HomePage({ params }: { params: { locale: string } }) {
@@ -60,10 +55,6 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
       {/* ── HERO ── */}
       <section className="bg-paper overflow-hidden">
         <div className="shell grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-center pt-14 lg:pt-20 pb-16 lg:pb-24">
@@ -135,7 +126,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
           {/* Right column — image slider */}
           <Reveal delay={180}>
-            <HeroSlider />
+            <HeroSlider alt={HERO_ALT[locale]} />
           </Reveal>
         </div>
       </section>
@@ -150,7 +141,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
             <div className="relative aspect-[5/4] rounded-[28px] overflow-hidden card shadow-soft">
               <Image
                 src="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=1200&auto=format&fit=crop"
-                alt=""
+                alt={INTRO_ALT[locale]}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"

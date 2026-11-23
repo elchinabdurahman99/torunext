@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { Locale } from "@/i18n/config";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { pageMetadata } from "@/lib/seo";
 import { fetchPosts } from "@/data/posts";
 import { localizedHref } from "@/lib/paths";
 import Reveal from "@/components/Reveal";
@@ -19,24 +20,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
-  return {
+  const posts = await fetchPosts();
+  return pageMetadata({
+    locale,
+    path: "/blogi",
     title: dict.meta.blogTitle,
     description: dict.meta.blogDesc,
-    alternates: {
-      canonical: `https://torupro.ee/${locale}/blogi`,
-      languages: {
-        et: "https://torupro.ee/et/blogi",
-        en: "https://torupro.ee/en/blogi",
-        ru: "https://torupro.ee/ru/blogi",
-        "x-default": "https://torupro.ee/et/blogi",
-      },
-    },
-    openGraph: {
-      title: dict.meta.blogTitle,
-      description: dict.meta.blogDesc,
-      type: "website",
-    },
-  };
+    // An empty listing is thin content: keep it out of the index until posts exist.
+    noindex: posts.length === 0,
+  });
 }
 
 function formatDate(dateStr: string, locale: Locale) {

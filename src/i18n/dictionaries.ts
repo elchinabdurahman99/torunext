@@ -148,6 +148,23 @@ export type Dictionary = {
     colPrice: string;
     notesTitle: string;
     important: string[];
+    info: {
+      discountLabel: string;
+      discountHours: string;
+      nightLabel: string;
+      nightSurcharge: string;
+      transport: string;
+      qualityTitle: string;
+      qualityBody: string;
+      taxNote: string;
+      discountSecondHour: string;
+      hourlyOnePerson: string;
+      warrantyNb: string;
+      pressureBefore: string;
+      pressureImportant: string;
+      pressureAfter: string;
+      callIntro: string;
+    };
   };
   contactPage: {
     eyebrow: string;
@@ -282,8 +299,8 @@ const et: Dictionary = {
     learnMore: "Loe lähemalt",
   },
   privacyPage: {
-    metaTitle: "Privaatsus- ja küpsisepoliitika — Torupro",
-    metaDesc: "Teave selle kohta, kuidas Torupro kogub, kasutab ja kaitseb teie isikuandmeid.",
+    metaTitle: "Privaatsus- ja küpsisepoliitika",
+    metaDesc: "Kuidas BaMu Ehitus OÜ kogub, kasutab ja kaitseb veebilehe külastajate ja klientide isikuandmeid ning milliseid küpsiseid kasutame.",
     title: "Privaatsus- ja küpsisepoliitika",
     sections: [
       {
@@ -313,8 +330,8 @@ const et: Dictionary = {
     ],
   },
   termsPage: {
-    metaTitle: "Teenuse tingimused — Torupro",
-    metaDesc: "Torupro teenuse osutamise tingimused.",
+    metaTitle: "Teenuse tingimused | Torutööd ja kanalisatsioonitööd",
+    metaDesc: "Sanitaartehniliste tööde, ummistuste likvideerimise, survepesu ja kaevetööde tellimise ning osutamise tingimused Tallinnas ja Harjumaal.",
     title: "Teenuse tingimused",
     subtitle: "Palun tutvuge hoolikalt alltoodud tingimustega enne tööde tellimist.",
     items: [
@@ -392,6 +409,23 @@ const et: Dictionary = {
       "Tunnihinnad kehtivad ühele spetsialistile. Kui vajalik on kaks või enam inimest, arvestatakse aega vastavalt.",
       "Kui töömasin peab kasutama tasulist parkimist, lisatakse arvele tegelik parkimiskulu. Sellest teavitatakse teid ette.",
     ],
+    info: {
+      discountLabel: "Soodustuse aken",
+      discountHours: "Soodustused kehtivad kell 8:00–19:00 (vastavalt kampaaniatele).",
+      nightLabel: "Öine väljakutse",
+      nightSurcharge: "Kell 19:00–8:00 lisandub arvele 10 € väljakutsetasu.",
+      transport: "Transport Tallinna piires on tasuta kell 8:00–19:00, välja arvatud survepesu ja fekaalivedu.",
+      qualityTitle: "Kvaliteet",
+      qualityBody: "Garanteerime kõrge kvaliteedi. Teenused läbivad selge planeerimise, kaasaegsed meetodid, varustus ja materjalid ning professionaalsed töötajad.",
+      taxNote: "Kõikidele teenustele lisandub käibemaks (Km).",
+      discountSecondHour: "Soodustused kehtivad alates teisest tunnist!",
+      hourlyOnePerson: "NB! Tunnitasu arvestatakse ühe töötaja kohta, kui pole kokku lepitud teisiti.",
+      warrantyNb: "NB! Garantii ei laiene ummistuste likvideerimisele.",
+      pressureBefore: "Survepesu, fekaali-, ",
+      pressureImportant: "õli-, liiva- ja ohtlike jäätmete",
+      pressureAfter: " veo puhul lisandub tööajale vee tankimine, jäätmete tühjendamine ja transport (edasi-tagasi). Selleks kulub sõltuvalt asukohast ligikaudu 1 tund.",
+      callIntro: "Helista ööpäevaringselt — avarii ja broneeringud.",
+    },
   },
   contactPage: {
     eyebrow: "Oleme siin, et aidata",
@@ -412,18 +446,18 @@ const et: Dictionary = {
     ],
   },
   meta: {
-    homeTitle: "Torupro — Sanitaartehnilised tööd Tallinnas",
-    homeDesc: "Professionaalsed sanitaartehnilised lahendused Tallinnas ja Harjumaal. Torutööd, ummistused, keevitus, survepesu ja palju muud.",
-    aboutTitle: "Meist — Torupro",
-    aboutDesc: "Tutvuge Torupro meeskonnaga — teie usaldusväärne partner torutööde lahendamisel.",
-    servicesTitle: "Teenused — Torupro",
-    servicesDesc: "Terviklik valik sanitaar- ja tehnosüsteemide teenuseid Tallinnas ja Harjumaal.",
-    pricingTitle: "Hinnakiri — Torupro",
-    pricingDesc: "Läbipaistev hinnakiri sanitaartehnilistele töödele.",
-    blogTitle: "Blogi — Torupro | Torutöödest ja sanitaartehnikast",
-    blogDesc: "Praktilised nõuanded ja juhendid torutöödest, ummistuste lahendamisest, torustiku vahetusest ja sanitaartehnika hooldusest Tallinnas.",
-    contactTitle: "Kontakt — Torupro",
-    contactDesc: "Võtke Toruproga ühendust — telefon, e-post ja kontaktivorm.",
+    homeTitle: "Torutööd ja ummistuste likvideerimine Tallinnas 24/7",
+    homeDesc: "Avariilised torutööd, ummistuste likvideerimine, survepesu, fekaalivedu ja kaamerauuring Tallinnas ja Harjumaal 24/7. Helista: +372 5679 2222",
+    aboutTitle: "Meist | Sanitaartehnilised tööd Tallinnas ja Harjumaal",
+    aboutDesc: "Kogenud torumehed Tallinnas ja Harjumaal: avariitööd, sanitaartehnika ja kanalisatsioon. 2-aastane garantii töödele ja selge hinnastamine.",
+    servicesTitle: "Torutööde ja kanalisatsiooni teenused Tallinnas",
+    servicesDesc: "Torutööd, ummistuse likvideerimine, survepesu, fekaalivedu, kaamerauuring, lekke otsimine ja püstakute vahetus Tallinnas ja Harjumaal.",
+    pricingTitle: "Torutööde hinnakiri Tallinnas | Survepesu ja fekaalivedu",
+    pricingDesc: "Torutööde, ummistuste likvideerimise, survepesu ja fekaaliveo hinnad Tallinnas. Selged tunnihinnad ja soodustused kell 8–19.",
+    blogTitle: "Blogi | Nõuanded torutööde ja kanalisatsiooni kohta",
+    blogDesc: "Praktilised nõuanded torutöödest, ummistuste ennetamisest, torustiku vahetusest ja sanitaartehnika hooldusest kogenud torumeestelt Tallinnas.",
+    contactTitle: "Kontakt | Kutsu torumees Tallinnas 24/7",
+    contactDesc: "Helista 24/7: +372 5679 2222 või kirjuta info@kiirhaldus24.ee. Pae tn 20, Tallinn. Avariilised torutööd ja ummistused Tallinnas ja Harjumaal.",
   },
 };
 
@@ -530,8 +564,8 @@ const en: Dictionary = {
     learnMore: "Learn more",
   },
   privacyPage: {
-    metaTitle: "Privacy & Cookie Policy — Torupro",
-    metaDesc: "Information on how Torupro collects, uses, and protects your personal data.",
+    metaTitle: "Privacy & Cookie Policy",
+    metaDesc: "How BaMu Ehitus OÜ collects, uses and protects the personal data of website visitors and customers, and which cookies this website uses.",
     title: "Privacy & Cookie Policy",
     sections: [
       {
@@ -561,8 +595,8 @@ const en: Dictionary = {
     ],
   },
   termsPage: {
-    metaTitle: "Terms of Service — Torupro",
-    metaDesc: "Terms and conditions for Torupro plumbing services.",
+    metaTitle: "Terms of Service | Plumbing and Sewer Works",
+    metaDesc: "Terms for ordering and providing plumbing, drain unblocking, hydro jetting and excavation work in Tallinn and Harju County.",
     title: "Terms of Service",
     subtitle: "Please read the following terms carefully before placing an order.",
     items: [
@@ -640,6 +674,23 @@ const en: Dictionary = {
       "Hourly rates apply per specialist. If two or more people are required, time is calculated accordingly.",
       "If the work vehicle must use paid parking, the actual parking cost is added to the invoice. You will be notified of this in advance.",
     ],
+    info: {
+      discountLabel: "Discount window",
+      discountHours: "Discounts apply between 8:00 and 19:00 (as advertised).",
+      nightLabel: "Night call-out",
+      nightSurcharge: "From 19:00 to 8:00, a call-out fee of €10 is added to the invoice.",
+      transport: "Transport within Tallinn is free from 8:00 to 19:00, except pressure washing and faecal transport.",
+      qualityTitle: "Quality commitment",
+      qualityBody: "We guarantee high quality. We deliver services through clear planning, up-to-date methods, modern equipment and materials, and skilled staff.",
+      taxNote: "VAT is added to all services.",
+      discountSecondHour: "Discounts apply from the second hour!",
+      hourlyOnePerson: "NB! Hourly billing is calculated per one worker unless agreed otherwise.",
+      warrantyNb: "NB! Warranty does not apply to blockage removal.",
+      pressureBefore: "For pressure washing and the removal of sewage, ",
+      pressureImportant: "oil waste, sand, and hazardous waste",
+      pressureAfter: ", water intake, waste disposal, and transport (round trip) are added to the working time. Depending on the location, this takes approximately 1 hour.",
+      callIntro: "Call us 24/7 for emergencies and bookings.",
+    },
   },
   contactPage: {
     eyebrow: "We are here to help",
@@ -660,18 +711,18 @@ const en: Dictionary = {
     ],
   },
   meta: {
-    homeTitle: "Torupro — Plumbing services in Tallinn",
-    homeDesc: "Professional sanitary-engineering solutions in Tallinn and Harju County. Plumbing, unclogging, welding, pressure washing and more.",
-    aboutTitle: "About — Torupro",
-    aboutDesc: "Meet the Torupro team — your reliable partner for plumbing solutions.",
-    servicesTitle: "Services — Torupro",
-    servicesDesc: "A complete range of sanitary and technical-system services in Tallinn and Harju County.",
-    pricingTitle: "Pricing — Torupro",
-    pricingDesc: "Transparent price list for sanitary-engineering work.",
-    blogTitle: "Blog — Torupro | Plumbing tips & guides",
-    blogDesc: "Practical plumbing tips, drain-clearing guides and pipe maintenance advice from Torupro's experienced team in Tallinn.",
-    contactTitle: "Contact — Torupro",
-    contactDesc: "Contact Torupro — phone, email and contact form.",
+    homeTitle: "Emergency Plumber & Drain Unblocking in Tallinn 24/7",
+    homeDesc: "24/7 emergency plumbing, drain unblocking, hydro jetting, sewage transport and pipe camera inspection in Tallinn and Harju County. Call +372 5679 2222",
+    aboutTitle: "About Us | Plumbing & Sanitary Engineering in Tallinn",
+    aboutDesc: "Experienced plumbers in Tallinn and Harju County: emergency repairs, sanitary engineering and sewer work, with a 2-year warranty and clear pricing.",
+    servicesTitle: "Plumbing & Sewer Services in Tallinn and Harju County",
+    servicesDesc: "Plumbing, drain unblocking, hydro jetting, sewage transport, camera inspection, leak detection and riser replacement in Tallinn and Harju County.",
+    pricingTitle: "Plumbing Price List Tallinn | Jetting & Sewage Transport",
+    pricingDesc: "Prices for plumbing, drain unblocking, hydro jetting and sewage transport in Tallinn. Clear hourly rates and daytime discounts from 8:00 to 19:00.",
+    blogTitle: "Blog | Plumbing and Drain Maintenance Tips",
+    blogDesc: "Practical plumbing tips, drain-clearing guides and pipe maintenance advice from experienced plumbers in Tallinn.",
+    contactTitle: "Contact | Call a Plumber in Tallinn 24/7",
+    contactDesc: "Call 24/7: +372 5679 2222 or email info@kiirhaldus24.ee. Pae tn 20, Tallinn. Emergency plumbing and drain unblocking in Tallinn and Harju County.",
   },
 };
 
@@ -778,8 +829,8 @@ const ru: Dictionary = {
     learnMore: "Подробнее",
   },
   privacyPage: {
-    metaTitle: "Политика конфиденциальности и использования cookie — Torupro",
-    metaDesc: "Информация о том, как Torupro собирает, использует и защищает ваши персональные данные.",
+    metaTitle: "Политика конфиденциальности и cookie",
+    metaDesc: "Как BaMu Ehitus OÜ собирает, использует и защищает персональные данные посетителей сайта и клиентов, и какие файлы cookie используются.",
     title: "Политика конфиденциальности и использования cookie",
     sections: [
       {
@@ -809,8 +860,8 @@ const ru: Dictionary = {
     ],
   },
   termsPage: {
-    metaTitle: "Условия предоставления услуг — Torupro",
-    metaDesc: "Условия и положения сантехнических услуг Torupro.",
+    metaTitle: "Условия предоставления сантехнических услуг",
+    metaDesc: "Условия заказа и выполнения сантехнических работ, устранения засоров, гидропромывки и земляных работ в Таллине и Харьюмаа.",
     title: "Условия предоставления услуг",
     subtitle: "Пожалуйста, внимательно ознакомьтесь с условиями перед оформлением заказа.",
     items: [
@@ -888,6 +939,23 @@ const ru: Dictionary = {
       "Почасовые ставки действуют на одного специалиста. Если требуется два и более человек, время рассчитывается соответственно.",
       "Если рабочей машине необходимо использовать платную парковку, к счёту добавляется фактическая стоимость парковки. Об этом вас уведомят заранее.",
     ],
+    info: {
+      discountLabel: "Окно скидок",
+      discountHours: "Скидки действуют с 8:00 до 19:00 (согласно акциям).",
+      nightLabel: "Ночной вызов",
+      nightSurcharge: "С 19:00 до 8:00 к счёту добавляется 10 € за вызов.",
+      transport: "Транспорт в пределах Таллина бесплатен с 8:00 до 19:00, кроме промывки под давлением и вывоза фекалий.",
+      qualityTitle: "Качество",
+      qualityBody: "Мы гарантируем высокое качество: чёткое планирование, современные методы, оборудование и материалы, квалифицированный персонал.",
+      taxNote: "Ко всем услугам добавляется НДС.",
+      discountSecondHour: "Скидки действуют со второго часа!",
+      hourlyOnePerson: "ВНИМАНИЕ! Почасовая ставка указана за одного работника, если не оговорено иначе.",
+      warrantyNb: "ВНИМАНИЕ! Гарантия не распространяется на устранение засоров.",
+      pressureBefore: "При гидродинамической промывке, откачке фекалий, ",
+      pressureImportant: "жировых отходов, песка и опасных отходов",
+      pressureAfter: " к рабочему времени добавляется забор воды, слив отходов и транспортировка (туда и обратно). В зависимости от местоположения это занимает примерно 1 час.",
+      callIntro: "Звоните круглосуточно — аварии и запись.",
+    },
   },
   contactPage: {
     eyebrow: "Мы здесь, чтобы помочь",
@@ -908,18 +976,18 @@ const ru: Dictionary = {
     ],
   },
   meta: {
-    homeTitle: "Torupro — Сантехнические услуги в Таллинне",
-    homeDesc: "Профессиональные сантехнические решения в Таллинне и Харьюмаа. Трубопровод, засоры, сварка, гидропромывка и многое другое.",
-    aboutTitle: "О нас — Torupro",
-    aboutDesc: "Познакомьтесь с командой Torupro — вашим надёжным партнёром в сантехнике.",
-    servicesTitle: "Услуги — Torupro",
-    servicesDesc: "Полный спектр сантехнических и инженерных услуг в Таллинне и Харьюмаа.",
-    pricingTitle: "Цены — Torupro",
-    pricingDesc: "Прозрачный прайс-лист на сантехнические работы.",
-    blogTitle: "Блог — Torupro | Советы по сантехнике",
-    blogDesc: "Практические советы и руководства по сантехнике, устранению засоров и замене труб от команды Torupro в Таллинне.",
-    contactTitle: "Контакты — Torupro",
-    contactDesc: "Свяжитесь с Torupro — телефон, эл. почта и форма обратной связи.",
+    homeTitle: "Сантехник и устранение засоров в Таллине 24/7",
+    homeDesc: "Аварийный сантехник 24/7, устранение засоров, гидропромывка, ассенизация и видеодиагностика труб в Таллине и Харьюмаа. Тел.: +372 5679 2222",
+    aboutTitle: "О нас | Сантехнические работы в Таллине и Харьюмаа",
+    aboutDesc: "Опытные сантехники в Таллине и Харьюмаа: аварийные работы, сантехника и канализация. Гарантия на работы 2 года и понятные цены.",
+    servicesTitle: "Услуги сантехника и канализации в Таллине",
+    servicesDesc: "Сантехработы, устранение засоров, гидропромывка, ассенизация, видеодиагностика, поиск течи и замена стояков в Таллине и Харьюмаа.",
+    pricingTitle: "Цены на сантехнические работы в Таллине | Прайс-лист",
+    pricingDesc: "Цены на сантехработы, устранение засоров, гидропромывку и ассенизацию в Таллине. Понятные почасовые ставки и скидки с 8:00 до 19:00.",
+    blogTitle: "Блог | Советы по сантехнике и канализации",
+    blogDesc: "Практические советы по сантехнике, устранению засоров и замене труб от опытных сантехников в Таллине.",
+    contactTitle: "Контакты | Вызов сантехника в Таллине 24/7",
+    contactDesc: "Звоните 24/7: +372 5679 2222 или пишите на info@kiirhaldus24.ee. Pae tn 20, Таллин. Аварийная сантехника и засоры в Таллине и Харьюмаа.",
   },
 };
 

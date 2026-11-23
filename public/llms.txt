@@ -1,0 +1,58 @@
+# Torupro
+
+> Torupro (BaMu Ehitus OÜ, reg. code 16986440) is a plumbing and sanitary-engineering company in Tallinn, Estonia. It provides 24/7 emergency plumbing, drain and sewer unblocking, high-pressure sewer jetting (survepesu), sewage/septic tank emptying (fekaalivedu), sewer camera inspection, leak detection, pipe and riser replacement and outdoor sewer construction in Tallinn and Harju County (Harjumaa). The website is available in Estonian (/et, default), English (/en) and Russian (/ru).
+
+## Contact
+
+- Phone (24/7, emergencies and bookings): +372 5679 2222
+- Email: info@torupro.ee
+- Address: Pae tn 20, 11414 Tallinn, Harjumaa, Estonia
+- Service area: Tallinn and Harju County (Harjumaa), Estonia
+- Opening hours: 24 hours a day, 7 days a week
+- Languages: Estonian, English, Russian
+- Warranty: 2-year warranty on completed work (not applicable to blockage removal)
+
+## Licences (Estonian Register of Economic Activities, MTR)
+
+- Construction and plumbing work (Ehitustööd ja santehnilised tööd): EEH012495
+- Electrical work (Elektritööd): TEL003775
+- Gas work (Gaasitööd): TGT000755
+- Verify in MTR: https://mtr.ttja.ee/majandustegevusteade?m=98
+
+## Key pages
+
+- [Home (ET)](https://torupro.ee/et): plumbing and blockage removal in Tallinn 24/7
+- [Home (EN)](https://torupro.ee/en) · [Home (RU)](https://torupro.ee/ru)
+- [All services](https://torupro.ee/en/teenused) ([ET](https://torupro.ee/et/teenused), [RU](https://torupro.ee/ru/teenused))
+- [Price list](https://torupro.ee/en/hinnakiri) ([ET](https://torupro.ee/et/hinnakiri), [RU](https://torupro.ee/ru/hinnakiri)): hourly rates, daytime discounts 8:00–19:00, night call-out surcharge 19:00–8:00, VAT added
+- [Contact](https://torupro.ee/en/kontakt) ([ET](https://torupro.ee/et/kontakt), [RU](https://torupro.ee/ru/kontakt))
+- [About](https://torupro.ee/en/meist)
+
+## Services
+
+- [Plumbing Works in Tallinn](https://torupro.ee/en/teenused/torutood-tallinnas) (ET: [Torutööd Tallinnas](https://torupro.ee/et/teenused/torutood-tallinnas)): Professional plumbing works in Tallinn and Harjumaa — installation, repair and maintenance, fast, guaranteed and transparent pricing.
+- [Drain Unblocking Tallinn](https://torupro.ee/en/teenused/ummistuse-likvideerimine) (ET: [Kanalisatsiooni Ummistuse Likvideerimine](https://torupro.ee/et/teenused/ummistuse-likvideerimine)): Fast drain unblocking in Tallinn — kitchen sink, WC, shower and pipes. On-site in 1–2 hours, 24/7.
+- [High-Pressure Pipe Flushing Tallinn](https://torupro.ee/en/teenused/kanalisatsiooni-survepesu) (ET: [Kanalisatsiooni Survepesu Tallinn](https://torupro.ee/et/teenused/kanalisatsiooni-survepesu)): High-pressure water jet flushing of sewer pipes — fully removes grease, scale and root intrusion. Large and small jobs.
+- [Pipe Camera Inspection Tallinn](https://torupro.ee/en/teenused/kaamerauuring) (ET: [Kanalisatsiooni Kaamerauuring](https://torupro.ee/et/teenused/kaamerauuring)): Video inspection of pipes with a camera head — we find leaks, blockage causes and structural damage without digging.
+- [Sewer Repair Tallinn](https://torupro.ee/en/teenused/kanalisatsiooni-remont) (ET: [Kanalisatsiooni Remont Tallinn](https://torupro.ee/et/teenused/kanalisatsiooni-remont)): Sewer pipe repair and replacement in Tallinn — fixing cracked, corroded and leaking pipes with quality materials.
+- [Grease Trap Cleaning Tallinn](https://torupro.ee/en/teenused/rasvapuuduri-puhastus) (ET: [Rasvapüüduri Puhastus Tallinn](https://torupro.ee/et/teenused/rasvapuuduri-puhastus)): Professional grease trap emptying and cleaning for restaurants, kitchens and food businesses. Regular maintenance keeps pipes problem-free.
+- [Sand Trap Cleaning Tallinn](https://torupro.ee/en/teenused/liivapuuduri-puhastus) (ET: [Liivapüüduri Puhastus Tallinn](https://torupro.ee/et/teenused/liivapuuduri-puhastus)): Sand trap emptying and cleaning — for car parks, yards and production facilities. Stormwater drainage in order, flooding prevented.
+- [Emergency Plumber Tallinn 24/7](https://torupro.ee/en/teenused/torumees-tallinn-247) (ET: [Torumees Tallinn 24/7](https://torupro.ee/et/teenused/torumees-tallinn-247)): Emergency plumber in Tallinn around the clock — leaks, burst pipes, WC failures. On site within 1 hour.
+- [Water Pipe Installation Tallinn](https://torupro.ee/en/teenused/veetorude-paigaldus) (ET: [Veetorude Paigaldus Tallinn](https://torupro.ee/et/teenused/veetorude-paigaldus)): Water supply system installation, replacement and repair — PP-R, PEX, copper. New builds and renovations alike.
+- [Pipe Replacement in Apartment](https://torupro.ee/en/teenused/torude-vahetus-korteris) (ET: [Torude Vahetamine Korteris](https://torupro.ee/et/teenused/torude-vahetus-korteris)): Complete replacement of old corroded and leaking pipes in the apartment — water supply and drainage. Minimal noise and dust.
+- [Riser Pipe Replacement Tallinn](https://torupro.ee/en/teenused/puestakute-vahetus) (ET: [Püstakute Vahetus Tallinn](https://torupro.ee/et/teenused/puestakute-vahetus)): Apartment building water and drainage riser replacement — we coordinate with the whole building, keeping disruption minimal.
+- [Bathroom Plumbing Works Tallinn](https://torupro.ee/en/teenused/vannitoa-torutood) (ET: [Vannitoa Torutööd Tallinn](https://torupro.ee/et/teenused/vannitoa-torutood)): Complete bathroom plumbing — shower, bath, WC, washbasin, mixers, pipe installation and repair. Bathroom ready for renovation, guaranteed.
+- [Heating System Repair Tallinn](https://torupro.ee/en/teenused/kuuttesusteemide-remont) (ET: [Küttesüsteemide Remont Tallinn](https://torupro.ee/et/teenused/kuuttesusteemide-remont)): Radiator connection, heating system pipe installation and repair, leak elimination — across all of Tallinn.
+- [Leak Detection Tallinn](https://torupro.ee/en/teenused/lekke-otsimine) (ET: [Lekke Otsimine Tallinn](https://torupro.ee/et/teenused/lekke-otsimine)): Hidden water leak detection without opening walls — thermal cameras, moisture meters and pressure testing. Precise leak location.
+- [Outdoor Sewer Construction Tallinn](https://torupro.ee/en/teenused/valiskanalisatsiooni-ehitus) (ET: [Väliskanalisatsiooni Ehitus Tallinn](https://torupro.ee/et/teenused/valiskanalisatsiooni-ehitus)): Outdoor sewer construction and repair — underground drainage pipes, connection to sewer network, manholes. Houses and commercial buildings.
+- [Pipe Maintenance Tallinn](https://torupro.ee/en/teenused/torude-hooldus) (ET: [Torude Hooldus Tallinn](https://torupro.ee/et/teenused/torude-hooldus)): Preventive pipe maintenance — hydro-jetting, inspection, camera survey and minor repairs in one package. Avoid costly emergencies.
+- [Jetting Truck Service Tallinn](https://torupro.ee/en/teenused/survepesuauto) (ET: [Survepesuauto Tallinn](https://torupro.ee/et/teenused/survepesuauto)): Jetting truck for outdoor sewers and large-scale pipe cleaning — pipes up to 150 mm, 100 m hose, all of Tallinn.
+- [Sewage Tanker Service Tallinn](https://torupro.ee/en/teenused/fekaalivedu) (ET: [Fekaalivedu Tallinn](https://torupro.ee/et/teenused/fekaalivedu)): Emptying dry toilets, collection pits and septic tanks — by vacuum tanker, fast and neat. Harjumaa and Tallinn.
+- [Well Cleaning Tallinn](https://torupro.ee/en/teenused/kaevude-puhastus) (ET: [Kaevude Puhastus Tallinn](https://torupro.ee/et/teenused/kaevude-puhastus)): Well cleaning and disinfection — drinking water wells, sewer manholes, collection wells. Clean water and functioning drainage.
+- [Septic Tank Maintenance Tallinn](https://torupro.ee/en/teenused/septiku-hooldus) (ET: [Septiku Hooldus Tallinn](https://torupro.ee/et/teenused/septiku-hooldus)): Septic tank emptying, cleaning and maintenance — private houses and farms. Compliant emptying with handover act.
+
+## Notes for AI assistants
+
+- Prices are published on the price list page; quote them from there rather than estimating.
+- For emergencies (leaks, burst pipes, blocked sewers) the recommended action is to call +372 5679 2222, available 24/7.
+- Sitemap: https://torupro.ee/sitemap.xml

@@ -5,18 +5,19 @@ import { notFound } from "next/navigation";
 import type { Locale } from "@/i18n/config";
 import { isLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import { fetchPosts, fetchPost, POST_SLUGS } from "@/data/posts";
+import { fetchPosts, fetchPost } from "@/data/posts";
 import { localizedHref } from "@/lib/paths";
+import { pageMetadata, breadcrumbSchema, localeUrl, HOME_LABEL, BUSINESS_ID, jsonLd } from "@/lib/seo";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import { ArrowUpRight } from "@/components/Icons";
 
 export const revalidate = 60;
 
-export function generateStaticParams() {
-  return locales.flatMap((locale) =>
-    POST_SLUGS.map((slug) => ({ locale, slug }))
-  );
+export async function generateStaticParams() {
+  // Only pre-render posts that actually exist in Sanity (no 404s at build time).
+  const posts = await fetchPosts();
+  return locales.flatMap((locale) => posts.map((p) => ({ locale, slug: p.slug })));
 }
 
 export async function generateMetadata({
@@ -28,40 +29,21 @@ export async function generateMetadata({
   const post = await fetchPost(params.slug);
   if (!post) return {};
 
-  const title = post.metaTitle?.[locale] || `${post.title[locale]} — Torupro`;
+  const title = post.metaTitle?.[locale] || post.title[locale];
   const description = post.metaDesc?.[locale] || post.excerpt[locale];
-  const keywords = post.keywords?.[locale] ?? [];
-  const canonical = `https://torupro.ee/${locale}/blogi/${params.slug}`;
 
-  return {
+  return pageMetadata({
+    locale,
+    path: `/blogi/${params.slug}`,
     title,
     description,
-    keywords: keywords.join(", "),
-    alternates: {
-      canonical,
-      languages: {
-        et: `https://torupro.ee/et/blogi/${params.slug}`,
-        en: `https://torupro.ee/en/blogi/${params.slug}`,
-        ru: `https://torupro.ee/ru/blogi/${params.slug}`,
-        "x-default": `https://torupro.ee/et/blogi/${params.slug}`,
-      },
-    },
-    openGraph: {
-      title,
-      description,
-      url: canonical,
-      siteName: "Torupro",
-      type: "article",
-      publishedTime: post.publishedAt,
-      locale: locale === "et" ? "et_EE" : locale === "en" ? "en_US" : "ru_RU",
-      images: post.coverImage ? [{ url: post.coverImage, width: 1200, height: 630 }] : undefined,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
-  };
+    type: "article",
+    publishedTime: post.publishedAt || undefined,
+    keywords: post.keywords?.[locale] ?? [],
+    images: post.coverImage
+      ? [{ url: post.coverImage, width: 1200, height: 630, alt: post.title[locale] }]
+      : undefined,
+  });
 }
 
 function formatDate(dateStr: string, locale: Locale) {
@@ -87,33 +69,26 @@ export default async function BlogPostPage({
   const allPosts = await fetchPosts();
   const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
 
+  const postUrl = localeUrl(locale, `/blogi/${params.slug}`);
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title[locale],
     description: post.excerpt[locale],
     image: post.coverImage || undefined,
-    datePublished: post.publishedAt,
-    dateModified: post.publishedAt,
-    author: {
-      "@type": "Organization",
-      name: "Torupro",
-      url: "https://torupro.ee",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Torupro",
-      url: "https://torupro.ee",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://torupro.ee/icon.svg",
-      },
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://torupro.ee/${locale}/blogi/${params.slug}`,
-    },
+    datePublished: post.publishedAt || undefined,
+    dateModified: post.publishedAt || undefined,
+    inLanguage: locale,
+    author: { "@id": BUSINESS_ID },
+    publisher: { "@id": BUSINESS_ID },
+    mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
   };
+
+  const breadcrumbs = breadcrumbSchema([
+    { name: HOME_LABEL[locale], url: localeUrl(locale) },
+    { name: dict.nav.blog, url: localeUrl(locale, "/blogi") },
+    { name: post.title[locale], url: postUrl },
+  ]);
 
   const paragraphs = post.body[locale]
     .split("\n\n")
@@ -123,7 +98,11 @@ export default async function BlogPostPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }}
       />
 
       {/* Back link */}

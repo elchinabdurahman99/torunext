@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { pageMetadata, breadcrumbSchema, localeUrl, HOME_LABEL, jsonLd } from "@/lib/seo";
 import { site } from "@/data/site";
 import PageHeader from "@/components/PageHeader";
 import ContactSection from "@/components/ContactSection";
@@ -15,19 +16,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
-  return {
+  return pageMetadata({
+    locale,
+    path: "/kontakt",
     title: dict.meta.contactTitle,
     description: dict.meta.contactDesc,
-    alternates: {
-      canonical: `https://torupro.ee/${locale}/kontakt`,
-      languages: {
-        et: "https://torupro.ee/et/kontakt",
-        en: "https://torupro.ee/en/kontakt",
-        ru: "https://torupro.ee/ru/kontakt",
-        "x-default": "https://torupro.ee/et/kontakt",
-      },
-    },
-  };
+  });
 }
 
 export default function ContactPage({ params }: { params: { locale: string } }) {
@@ -36,6 +30,17 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(
+            breadcrumbSchema([
+              { name: HOME_LABEL[locale], url: localeUrl(locale) },
+              { name: dict.nav.contact, url: localeUrl(locale, "/kontakt") },
+            ])
+          ),
+        }}
+      />
       <PageHeader
         eyebrow={dict.contactPage.eyebrow}
         title={dict.contactPage.title}

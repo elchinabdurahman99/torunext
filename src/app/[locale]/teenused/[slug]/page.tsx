@@ -7,6 +7,7 @@ import { isLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { fetchServices, fetchService, SERVICE_SLUGS } from "@/data/services";
 import { localizedHref } from "@/lib/paths";
+import { pageMetadata, breadcrumbSchema, localeUrl, HOME_LABEL, BUSINESS_ID, jsonLd } from "@/lib/seo";
 import Reveal from "@/components/Reveal";
 import ServiceCard from "@/components/ServiceCard";
 import CtaBand from "@/components/CtaBand";
@@ -29,40 +30,24 @@ export async function generateMetadata({
   const service = await fetchService(params.slug);
   if (!service) return {};
 
-  const title = service.metaTitle?.[locale] || `${service.title[locale]} — Torupro`;
+  const title = service.metaTitle?.[locale] || service.title[locale];
   const description = service.metaDesc?.[locale] || service.short[locale];
-  const keywords = service.keywords?.[locale] ?? [];
-  const canonical = `https://torupro.ee/${locale}/teenused/${params.slug}`;
-  const ogTitle = service.ogTitle?.[locale] || title;
-  const ogDesc = service.ogDesc?.[locale] || description;
+  const image = service.imageUrl
+    ? `${service.imageUrl}?w=1200&h=630&fit=crop&auto=format`
+    : undefined;
 
-  return {
+  return pageMetadata({
+    locale,
+    path: `/teenused/${params.slug}`,
     title,
     description,
-    keywords: keywords.join(", "),
-    alternates: {
-      canonical,
-      languages: {
-        et: `https://torupro.ee/et/teenused/${params.slug}`,
-        en: `https://torupro.ee/en/teenused/${params.slug}`,
-        ru: `https://torupro.ee/ru/teenused/${params.slug}`,
-        "x-default": `https://torupro.ee/et/teenused/${params.slug}`,
-      },
-    },
-    openGraph: {
-      title: ogTitle,
-      description: ogDesc,
-      url: canonical,
-      siteName: "Torupro",
-      locale: locale === "et" ? "et_EE" : locale === "en" ? "en_US" : "ru_RU",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: ogTitle,
-      description: ogDesc,
-    },
-  };
+    ogTitle: service.ogTitle?.[locale] || title,
+    ogDescription: service.ogDesc?.[locale] || description,
+    keywords: service.keywords?.[locale] ?? [],
+    images: image
+      ? [{ url: image, width: 1200, height: 630, alt: service.imageAlt?.[locale] || service.title[locale] }]
+      : undefined,
+  });
 }
 
 export default async function ServiceDetailPage({
@@ -98,42 +83,45 @@ export default async function ServiceDetailPage({
         }
       : null;
 
-  // LocalBusiness + Service JSON-LD
+  const pageUrl = localeUrl(locale, `/teenused/${service.slug}`);
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": `${pageUrl}#service`,
     name: service.title[locale],
+    serviceType: service.title[locale],
     description: service.short[locale],
-    provider: {
-      "@type": "LocalBusiness",
-      name: "Torupro / BaMu Ehitus OÜ",
-      telephone: "+37256058888",
-      email: "info@torupro.ee",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Pae tn 20",
-        addressLocality: "Tallinn",
-        addressRegion: "Harjumaa",
-        postalCode: "11414",
-        addressCountry: "EE",
-      },
-      areaServed: service.serviceArea || "Tallinn, Harjumaa",
-      priceRange: service.priceRange || "€-€€€",
-    },
-    areaServed: service.serviceArea || "Tallinn, Harjumaa",
+    url: pageUrl,
+    image: service.imageUrl || undefined,
+    inLanguage: locale,
+    provider: { "@id": BUSINESS_ID },
+    areaServed: [
+      { "@type": "City", name: "Tallinn" },
+      { "@type": "AdministrativeArea", name: "Harjumaa" },
+    ],
   };
+
+  const breadcrumbs = breadcrumbSchema([
+    { name: HOME_LABEL[locale], url: localeUrl(locale) },
+    { name: dict.nav.services, url: localeUrl(locale, "/teenused") },
+    { name: service.title[locale], url: pageUrl },
+  ]);
 
   return (
     <>
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }}
       />
       {faqSchema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }}
         />
       )}
 

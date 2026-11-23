@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Torupro Studio",
+  title: "Content Studio",
   robots: { index: false, follow: false },
 };
 

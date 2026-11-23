@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 import { Fraunces, Hanken_Grotesk } from "next/font/google";
@@ -8,6 +8,7 @@ import { site } from "@/data/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { localizedHref } from "@/lib/paths";
+import { SITE_URL, OG_LOCALE, siteGraph, jsonLd } from "@/lib/seo";
 import "../globals.css";
 
 const FloatingButtons = dynamic(() => import("@/components/FloatingButtons"), { ssr: false });
@@ -40,32 +41,24 @@ export async function generateMetadata({
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
   return {
-    title: { default: dict.meta.homeTitle, template: `%s — Torupro` },
+    metadataBase: new URL(SITE_URL),
+    // No "%s | Brand" template: every page sets its own keyword-based title.
+    title: dict.meta.homeTitle,
     description: dict.meta.homeDesc,
-    metadataBase: new URL("https://torupro.ee"),
-    alternates: {
-      canonical: `https://torupro.ee/${locale}`,
-      languages: {
-        et: "https://torupro.ee/et",
-        en: "https://torupro.ee/en",
-        ru: "https://torupro.ee/ru",
-        "x-default": "https://torupro.ee/et",
-      },
-    },
+    applicationName: site.name,
+    formatDetection: { telephone: false },
     openGraph: {
-      title: dict.meta.homeTitle,
-      description: dict.meta.homeDesc,
       siteName: site.name,
       type: "website",
-      locale: locale === "et" ? "et_EE" : locale === "en" ? "en_US" : "ru_RU",
+      locale: OG_LOCALE[locale],
     },
-    twitter: {
-      card: "summary_large_image",
-      title: dict.meta.homeTitle,
-      description: dict.meta.homeDesc,
-    },
+    twitter: { card: "summary_large_image" },
   };
 }
+
+export const viewport: Viewport = {
+  themeColor: "#0c3a47",
+};
 
 export default function LocaleLayout({
   children,
@@ -85,6 +78,10 @@ export default function LocaleLayout({
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd(siteGraph(locale)) }}
+        />
         <Header
           locale={locale}
           nav={dict.nav}

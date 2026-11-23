@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { pageMetadata, breadcrumbSchema, localeUrl, HOME_LABEL, jsonLd } from "@/lib/seo";
 import { fetchServices } from "@/data/services";
 import PageHeader from "@/components/PageHeader";
 import ServiceCard from "@/components/ServiceCard";
@@ -16,19 +17,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
-  return {
+  return pageMetadata({
+    locale,
+    path: "/teenused",
     title: dict.meta.servicesTitle,
     description: dict.meta.servicesDesc,
-    alternates: {
-      canonical: `https://torupro.ee/${locale}/teenused`,
-      languages: {
-        et: "https://torupro.ee/et/teenused",
-        en: "https://torupro.ee/en/teenused",
-        ru: "https://torupro.ee/ru/teenused",
-        "x-default": "https://torupro.ee/et/teenused",
-      },
-    },
-  };
+  });
 }
 
 export default async function ServicesPage({ params }: { params: { locale: string } }) {
@@ -48,6 +42,17 @@ export default async function ServicesPage({ params }: { params: { locale: strin
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(
+            breadcrumbSchema([
+              { name: HOME_LABEL[locale], url: localeUrl(locale) },
+              { name: dict.nav.services, url: localeUrl(locale, "/teenused") },
+            ])
+          ),
+        }}
+      />
       <PageHeader
         eyebrow={dict.servicesPage.eyebrow}
         title={dict.servicesPage.title}

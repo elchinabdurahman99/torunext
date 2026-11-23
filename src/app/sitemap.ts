@@ -1,79 +1,68 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/i18n/config";
-import { SERVICE_SLUGS } from "@/data/services";
-import { POST_SLUGS } from "@/data/posts";
+import { sanityClient } from "@/lib/sanity";
+import { languageAlternates, localeUrl } from "@/lib/seo";
 
-const BASE = "https://torupro.ee";
+export const revalidate = 3600;
 
-const staticPages = ["", "/meist", "/teenused", "/hinnakiri", "/blogi", "/kontakt"];
+type Entry = { path: string; lastModified: Date; changeFrequency: "weekly" | "monthly"; priority: number };
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const entries: MetadataRoute.Sitemap = [];
+/** All indexable URLs × locales, with hreflang alternates. Noindex pages (privacy, terms) are excluded. */
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  let services: { slug: string; _updatedAt: string }[] = [];
+  let posts: { slug: string; _updatedAt: string; publishedAt?: string }[] = [];
+  try {
+    [services, posts] = await Promise.all([
+      sanityClient.fetch(`*[_type == "service" && defined(slug)]{ slug, _updatedAt }`),
+      sanityClient.fetch(`*[_type == "post" && defined(slug)]{ slug, _updatedAt, publishedAt }`),
+    ]);
+  } catch {
+    // Sanity unreachable: fall back to static pages only.
+  }
 
-  // Static pages for each locale
-  for (const page of staticPages) {
-    const alternates: Record<string, string> = {};
-    for (const locale of locales) {
-      alternates[locale] = `${BASE}/${locale}${page}`;
-    }
-    alternates["x-default"] = `${BASE}/et${page}`;
+  const latest = (dates: string[]) =>
+    dates.length ? new Date(Math.max(...dates.map((d) => new Date(d).getTime()))) : new Date();
+  const servicesUpdated = latest(services.map((s) => s._updatedAt));
 
-    entries.push({
-      url: `${BASE}/et${page}`,
-      lastModified: new Date(),
-      changeFrequency: page === "" ? "weekly" : "monthly",
-      priority: page === "" ? 1.0 : 0.8,
-      alternates: { languages: alternates },
+  const pages: Entry[] = [
+    { path: "", lastModified: servicesUpdated, changeFrequency: "weekly", priority: 1.0 },
+    { path: "/teenused", lastModified: servicesUpdated, changeFrequency: "weekly", priority: 0.9 },
+    { path: "/hinnakiri", lastModified: new Date("2026-11-12"), changeFrequency: "monthly", priority: 0.8 },
+    { path: "/kontakt", lastModified: new Date("2026-11-12"), changeFrequency: "monthly", priority: 0.8 },
+    { path: "/meist", lastModified: new Date("2026-11-12"), changeFrequency: "monthly", priority: 0.6 },
+    ...services.map((s) => ({
+      path: `/teenused/${s.slug}`,
+      lastModified: new Date(s._updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ];
+
+  // The blog index is noindex while empty, so only list it when posts exist.
+  if (posts.length > 0) {
+    pages.push({
+      path: "/blogi",
+      lastModified: latest(posts.map((p) => p._updatedAt)),
+      changeFrequency: "weekly",
+      priority: 0.6,
     });
-
-    for (const locale of locales.filter((l) => l !== "et")) {
-      entries.push({
-        url: `${BASE}/${locale}${page}`,
-        lastModified: new Date(),
-        changeFrequency: page === "" ? "weekly" : "monthly",
-        priority: page === "" ? 1.0 : 0.8,
-        alternates: { languages: alternates },
-      });
-    }
-  }
-
-  // Service detail pages
-  for (const slug of SERVICE_SLUGS) {
-    const alternates: Record<string, string> = {};
-    for (const locale of locales) {
-      alternates[locale] = `${BASE}/${locale}/teenused/${slug}`;
-    }
-    alternates["x-default"] = `${BASE}/et/teenused/${slug}`;
-
-    for (const locale of locales) {
-      entries.push({
-        url: `${BASE}/${locale}/teenused/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.7,
-        alternates: { languages: alternates },
-      });
-    }
-  }
-
-  // Blog post pages
-  for (const slug of POST_SLUGS) {
-    const alternates: Record<string, string> = {};
-    for (const locale of locales) {
-      alternates[locale] = `${BASE}/${locale}/blogi/${slug}`;
-    }
-    alternates["x-default"] = `${BASE}/et/blogi/${slug}`;
-
-    for (const locale of locales) {
-      entries.push({
-        url: `${BASE}/${locale}/blogi/${slug}`,
-        lastModified: new Date(),
+    for (const p of posts) {
+      pages.push({
+        path: `/blogi/${p.slug}`,
+        lastModified: new Date(p._updatedAt),
         changeFrequency: "monthly",
         priority: 0.6,
-        alternates: { languages: alternates },
       });
     }
   }
 
-  return entries;
+  return pages.flatMap((page) =>
+    locales.map((locale) => ({
+      url: localeUrl(locale, page.path),
+      lastModified: page.lastModified,
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+      alternates: { languages: languageAlternates(page.path) },
+    }))
+  );
 }

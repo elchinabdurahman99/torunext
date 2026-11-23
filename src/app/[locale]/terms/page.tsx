@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { pageMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 
@@ -12,11 +13,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = (isLocale(params.locale) ? params.locale : "et") as Locale;
   const dict = getDictionary(locale);
-  return {
+  return pageMetadata({
+    locale,
+    path: "/terms",
     title: dict.termsPage.metaTitle,
     description: dict.termsPage.metaDesc,
-    robots: { index: false, follow: false },
-  };
+    noindex: true,
+  });
 }
 
 export default function TermsPage({ params }: { params: { locale: string } }) {

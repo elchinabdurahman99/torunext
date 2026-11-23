@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "./Icons";
 
 const IMAGES = ["/torupro.jpeg"];
 
-export default function HeroSlider() {
+export default function HeroSlider({ alt = "" }: { alt?: string }) {
   const [idx, setIdx] = useState(0);
 
   const prev = () => setIdx((i) => (i - 1 + IMAGES.length) % IMAGES.length);
@@ -17,7 +17,7 @@ export default function HeroSlider() {
       <Image
         key={idx}
         src={IMAGES[idx]}
-        alt=""
+        alt={alt}
         fill
         sizes="(max-width: 1024px) 100vw, 50vw"
         className="object-cover transition-opacity duration-500"
